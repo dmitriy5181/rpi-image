@@ -1,0 +1,26 @@
+kind: pipeline
+name: default
+
+steps:
+- name: image
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: dmitriy5181/rpi
+
+- name: notify
+  image: drillster/drone-email
+  settings:
+    from: "Drone CI <drone@prgm.xyz>"
+    host: prgm.xyz
+    username:
+      from_secret: email_username
+    password:
+      from_secret: email_password
+  when:
+    status:
+      - success
+      - failure
