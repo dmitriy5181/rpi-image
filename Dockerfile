@@ -1,7 +1,7 @@
 FROM debian:buster-slim AS build
 
 RUN apt-get update && apt-get install --yes \
-    libguestfs-tools wget unzip qemu-user-static
+    libguestfs-tools wget unzip
 
 WORKDIR /buildarea
 
@@ -15,5 +15,4 @@ RUN sed -i 's/\${PLATFORM}/v6l/' rootfs/etc/ld.so.preload
 FROM scratch
 
 COPY --from=build /buildarea/rootfs /
-COPY --from=build /usr/bin/qemu-arm-static /usr/bin/
 CMD ["bash"]

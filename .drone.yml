@@ -9,7 +9,8 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: dmitriy5181/rpi
+    repo: dcr.prgm.xyz/raspbian
+    registry: dcr.prgm.xyz
 
 - name: notify
   image: drillster/drone-email
@@ -22,5 +23,4 @@ steps:
       from_secret: email_password
   when:
     status:
-      - success
       - failure
